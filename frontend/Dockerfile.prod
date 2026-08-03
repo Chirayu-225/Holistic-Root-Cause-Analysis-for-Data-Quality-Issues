@@ -1,0 +1,20 @@
+# Multi-stage build: compile the static bundle, then serve it with nginx.
+# Use this (rather than the dev Dockerfile) for real deployment -- it's a
+# smaller image with no Node.js runtime in the final container, and no
+# live-reload dev server exposed publicly.
+
+FROM node:20-slim AS build
+WORKDIR /app
+COPY package.json ./
+RUN npm install
+COPY . .
+# VITE_API_BASE_URL must point at the deployed backend's public URL,
+# e.g. https://rca-backend.up.railway.app -- set this as a build arg.
+ARG VITE_API_BASE_URL
+ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
+RUN npm run build
+
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80

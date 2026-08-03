@@ -1,0 +1,88 @@
+:root {
+  /* Color */
+  --ink: #0b0e14;
+  --panel: #12161f;
+  --panel-raised: #171c28;
+  --hairline: #232838;
+  --hairline-bright: #323a52;
+  --amber: #e8b34c;
+  --amber-dim: #6b551f;
+  --confirmed: #4fb477;
+  --confirmed-dim: #1e3327;
+  --refuted: #d9534f;
+  --refuted-dim: #3a2220;
+  --text: #e7e9ee;
+  --text-dim: #8a93a6;
+  --text-faint: #545d70;
+
+  /* Type */
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--amber-dim);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+code,
+.mono {
+  font-family: var(--font-mono);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.scrollbox {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--hairline-bright) transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

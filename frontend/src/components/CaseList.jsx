@@ -1,3 +1,5 @@
+import { DEFECT_TYPE_GLOSS } from "../glossary";
+
 const SEVERITY_COLOR = {
   Critical: "var(--refuted)",
   High: "var(--amber)",
@@ -11,6 +13,7 @@ export default function CaseList({ stage, stages, onStageChange, fingerprints, l
       <div className="case-list__header">
         <div className="eyebrow">Holistic RCA Framework</div>
         <h1 className="case-list__title">Case File</h1>
+        <p className="case-list__intro">Each card below is a data problem found automatically. Click one to see the full investigation.</p>
       </div>
 
       <div className="case-list__stage-picker">
@@ -39,6 +42,7 @@ export default function CaseList({ stage, stages, onStageChange, fingerprints, l
         {fingerprints.map((fp) => {
           const id = fp.fingerprint_id;
           const isReview = fp.needs_review;
+          const gloss = DEFECT_TYPE_GLOSS[fp.defect_type];
           return (
             <button
               key={id}
@@ -52,6 +56,7 @@ export default function CaseList({ stage, stages, onStageChange, fingerprints, l
                 </span>
               </div>
               <div className="case-card__fields mono">{fp.affected_fields.join(", ")}</div>
+              {gloss && <div className="case-card__gloss">{gloss}</div>}
               <div className="case-card__meta">
                 <span>{fp.failure_volume} records</span>
                 {isReview && <span className="case-card__flag">needs review</span>}
